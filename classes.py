@@ -2,7 +2,7 @@ import random
 import pymongo
 
 def last_eleven(hand,pos):
-    """finds the first 11 in a list of number
+    """Finds the first 11 in a list of number
 
     :param hand: A list, of numbers
     :param pos: An int, position to start searching from
@@ -18,7 +18,7 @@ def last_eleven(hand,pos):
     return(found)
 
 def is_blackjack(hand):
-    """returns true if the list contains [1,10] or [10,1]"""
+    """Returns true if the hand list contains [1,10] or [10,1]"""
     if (hand[0]==1 and hand[1]==10) or (hand[1]==1 and hand[0]==10):
         return(True)
     else:
@@ -62,12 +62,12 @@ class Player:
         self.gain=-1
 
     def draw_card(self,deck):
-        """Draw a card from the deck and calculate player hand score"""
+        """Draws a card from the deck and calculate player's hand score"""
         self.hand.append(deck.get_card())
         self.score_hand()
 
     def score_hand(self):
-        """Calculate player's hand score
+        """Calculates player's hand score
 
         Unless a blackjack is detected, scoring is made by counting all aces as 11,
         then switch them back to 1 one after the other until score goes below 22
@@ -97,10 +97,7 @@ class DAO:
     :param uri: A string, MongoDB URI to connect to
     """
     def __init__(self,uri):
-        # connect to mongo
         connection = pymongo.MongoClient(uri)
-
-        # get a handle to the MongoDB database
         self.db = connection.blackjack
         self.games = self.db.games
         
