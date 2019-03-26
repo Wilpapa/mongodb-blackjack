@@ -79,7 +79,6 @@ class Player:
             self.blackjack = is_blackjack(self.hand)
             hand = self.hand
         else:
-            score = 0
             pos = 0
             # let's convert all 1 in 11
             hand = [11 if x == 1 else x for x in self.hand]

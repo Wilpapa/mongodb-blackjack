@@ -8,7 +8,7 @@ for later analysis
 """
 
 from datetime import datetime
-from classes import *
+from classes import DAO, Player, Deck
 
 MONGO_URI = "mongodb://localhost"  # MongoDB connection string
 SAMPLES = 1000  # number of games to play
