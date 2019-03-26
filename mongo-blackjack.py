@@ -8,7 +8,7 @@ for later analysis
 """
 
 from datetime import datetime
-from classes import *
+from classes import DAO, Player, Deck
 
 
 MONGOURI="mongodb://localhost" #MongoDB connection string
