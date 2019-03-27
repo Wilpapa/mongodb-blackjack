@@ -4,7 +4,7 @@ Blackjack games simulator with data storage in MongoDB for game analysis.
 
 "Dad, do you think there's a simple way to win against the dealer in Casino Blackjack ? what if we stand at 15 - for example ?"
 
-The whole story about this piece of code is taking advantage of my son curiosity for the maths behind Blackjack casino game to lead him into algorithm design, object programming and, of course, having fun with MongoDB (do you know a **cooler** database engine ?!).
+The whole story about this piece of code is taking advantage of my son curiosity for the maths behind Blackjack casino game to lead him into algorithm design, object programming, writing clean documented code and, of course, having fun with MongoDB (do you know a **cooler** database engine ?!).
 
 Basic principle is as follow :
 * Player will draw cards until score reaches THRESHOLD value or gets busted
