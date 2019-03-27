@@ -2,6 +2,27 @@
 
 Blackjack games simulator with data storage in MongoDB for game analysis.
 
+"Dad, do you think there's a simple way to win against the dealer in Casino Blackjack ? what if we stand at 15 - for example ?"
+
+The whole story about this piece of code is taking advantage of my son curiosity for the maths behind Blackjack casino game to lead him into algorithm design, object programming and, of course, having fun with MongoDB (do you know a **cooler** database engine ?!).
+
+Basic principle is as follow :
+* Player will draw cards until score reaches THRESHOLD value or gets busted
+* Then if player did not cross 21, Casino will draw cards until score reaches 17 or gets busted
+
+As all games are recorded into MongoDB database, it's easy to run some aggregation pipelines to gather statistics, see last chapter of this README.
+
+The program is counting player gains as follow :
+* Player does a blackjack and Casino does not : 3 
+* Player and Casino get a blackjack : 1
+* Player busted or Casino has a blackjack while plauer has not : 0
+* Player wins on Casino : 2
+
+The program can be improved in several ways :
+- implement Double and Split
+- take Casino cards into account for hitting cards decision making
+- adapt hitting strategy depending on number of cards in hand
+
 # How to start
 
 ## MongoDB
@@ -43,19 +64,30 @@ mongodb+srv://<username>:<password>@freesandbox-rirxn.mongodb.net/test?retryWrit
 
 # Start the python program
 
-You have to use python 3 and you have to install the dependencies.
+### You have to use python 3 and you have to install the dependencies.
 
 ```
 sudo pip3 install -r requirements.txt
 ```
 
-Then you just have to execute the program with the correct MongoDB URI.
+### Edit mongo-blackjack.py and set the values you want to use :
+
+```
+MONGO_URI = "mongodb://localhost" # URI to connect to MongoDB
+SAMPLES = 1000  # number of games to play
+THRESHOLD = 15  # score under which Player will draw 1 card
+NB_DECKS = 4  # number of decks to use. Decks are reshuffled when half the cards have been drawn
+```
+
+### Then you just have to execute the program
 
 For example:
 
 ```
-python mongo-blackjack.py mongodb://localhost
+python3 mongo-blackjack.py
 ```
+
+# Analyze games
 
 Finally, you will find the documents in MongoDB:
 
@@ -86,8 +118,12 @@ switched to db blackjack
 }
 ```
 
-## Contributors
+### Example of analytic queris
+
+__TODO__
+
+# Contributors
 
 - Samuel Meister : for the original idea and designing the global algorithm
 - Tatiana Meister : for support when rewriting code in OOP
-- Maxime Beugnet : for the code review and this awesome README :-).
+- Maxime Beugnet : for the code review and starting this awesome README :-).
