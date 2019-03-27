@@ -15,7 +15,7 @@ NB_DECKS = 4  # number of decks to use. Decks are reshuffled when half the cards
 from datetime import datetime
 from classes import DAO, Player, Deck
 
-MONGO_URI = "mongodb://localhost"  
+MONGO_URI = "mongodb://localhost" 
 SAMPLES = 10000 
 THRESHOLD = 15 
 NB_DECKS = 4  
@@ -25,12 +25,13 @@ print("starting Blackjack games simulator at", START_TIME)
 print(" SAMPLES",SAMPLES)
 print(" THRESHOLD",THRESHOLD)
 print(" NB_DECKS",NB_DECKS)
+
 mongo = DAO(MONGO_URI)
 p_human = Player()
 p_casino = Player()
 c_deck = Deck(NB_DECKS)
 
-print("Deck generated in",datetime.now()-START_TIME,"seconds")
+print("Deck generated in",datetime.now()-START_TIME)
 for i in range(SAMPLES):
     p_human.draw_card(c_deck)
     p_casino.draw_card(c_deck)
@@ -59,5 +60,5 @@ for i in range(SAMPLES):
     mongo.add_game(START_TIME, i, THRESHOLD, p_human, p_casino)
     p_human.reset()
     p_casino.reset()
-print("done in",datetime.now()-START_TIME,"seconds")
-print(datetime.now())
+
+print("done in",datetime.now()-START_TIME)

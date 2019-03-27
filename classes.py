@@ -14,7 +14,7 @@ class Deck:
     def shuffle_deck(self):
         """Creates a deck of nb_decks 52 cards games and shuffles it"""
         self.position_deck = 0
-        self.cards = list(range(1, 11)) * 4 * self.nb_decks + [10, 10, 10] * self.nb_decks * 4
+        self.cards = 4 * self.nb_decks * (list(range(1, 11)) + [10, 10, 10])
         random.shuffle(self.cards)
 
     def get_card(self):
@@ -25,7 +25,6 @@ class Deck:
         if self.position_deck > self.mid_deck:
             self.shuffle_deck()
         return card
-
 
 class Player:
     """Represents a player drawing cards - human or casino"""
@@ -50,9 +49,9 @@ class Player:
         Unless a blackjack is detected, scoring is made by counting all aces as 11,
         then switch them back to 1 one after the other until score goes below 22
         """
-        if len(self.hand) == 2:
-            self.blackjack = (self.hand==[1,10] or self.hand==[10,1])
-            hand = self.hand
+        self.blackjack = (self.hand==[1,10] or self.hand==[10,1])
+        if self.blackjack:
+            self.score=21
         else:
             # convert all aces to 11
             hand = [11 if x == 1 else x for x in self.hand]
@@ -63,7 +62,7 @@ class Player:
                     hand[i] = 1 # yes switch it to 1
                 except ValueError: # no, let's exit
                     break
-        self.score = sum(hand)
+            self.score = sum(hand)
 
 class DAO:
     """Represents MongoDB blackjack.games collection to write each game into
