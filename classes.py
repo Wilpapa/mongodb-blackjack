@@ -1,41 +1,11 @@
 import random
 import pymongo
 
-
-def _last_eleven(hand, pos):
-    """Finds the first 11 in a list of number
-
-    :param hand: A list, of numbers
-    :param pos: An int, position to start searching from
-    :rtype: An int, position where 11 was found, or 99 if not found
-    """
-    i = pos
-    found = 99
-    while i <= (len(hand) - 1):
-        if hand[i] == 11:
-            found = i
-            i = 99
-        i += 1
-    return found
-
-def last_eleven(hand):
-    try:
-        i=hand.index(11)
-    except ValueError:
-        i=99
-    return(i)
-
-def is_blackjack(hand):
-    """Returns true if the hand list contains [1,10] or [10,1]"""
-    return (hand[0] == 1 and hand[1] == 10) or (hand[1] == 1 and hand[0] == 10)
-
-
 class Deck:
     """Represents a full set of 52 cards desks to play with
 
     :param nb_decks: An int, number of card decks to use
     """
-
     def __init__(self, nb_decks):
         self.nb_decks = nb_decks
         self.mid_deck = 26 * nb_decks  # used to re-shuffle deck and reset position
@@ -59,7 +29,6 @@ class Deck:
 
 class Player:
     """Represents a player drawing cards - human or casino"""
-
     def __init__(self):
         self.reset()
 
@@ -82,36 +51,32 @@ class Player:
         then switch them back to 1 one after the other until score goes below 22
         """
         if len(self.hand) == 2:
-            self.blackjack = is_blackjack(self.hand)
+            self.blackjack = (self.hand==[1,10] or self.hand==[10,1])
             hand = self.hand
         else:
-            pos = 0
-            # let's convert all 1 in 11
+            # convert all aces to 11
             hand = [11 if x == 1 else x for x in self.hand]
             # compute score and switch back aces to 1 until score<=21
-            while sum(hand) > 21 and pos < 99:
-                # if over 21 then change last 11 for 1
-                pos = last_eleven(hand)
-                if pos < 99:
-                    hand[pos] = 1
+            while sum(hand) > 21:
+                try:
+                    i=hand.index(11) # any 11 in hand ?
+                    hand[i] = 1 # yes switch it to 1
+                except ValueError: # no, let's exit
+                    break
         self.score = sum(hand)
-
-    def add_gain(self, value):
-        self.gain += value
-
 
 class DAO:
     """Represents MongoDB blackjack.games collection to write each game into
 
     :param uri: A string, MongoDB URI to connect to
     """
-
     def __init__(self, uri):
         connection = pymongo.MongoClient(uri)
         self.db = connection.blackjack
         self.games = self.db.games
 
     def add_game(self, start_time, sample, threshold, p_human, p_casino):
+        """writes game result to blackjack.games database"""
         game = {"TS": start_time,
                 "sample": sample,
                 "threshold": threshold,
@@ -122,5 +87,4 @@ class DAO:
                 "playerScore": p_human.score,
                 "casinoScore": p_casino.score,
                 "playerGain": p_human.gain}
-
         self.games.insert_one(game)

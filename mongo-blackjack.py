@@ -21,6 +21,7 @@ p_human = Player()
 p_casino = Player()
 c_deck = Deck(NB_DECKS)
 
+print("starting...")
 for i in range(SAMPLES):
     p_human.draw_card(c_deck)
     p_casino.draw_card(c_deck)
@@ -49,3 +50,4 @@ for i in range(SAMPLES):
     mongo.add_game(START_TIME, i, THRESHOLD, p_human, p_casino)
     p_human.reset()
     p_casino.reset()
+print("done !")
