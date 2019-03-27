@@ -2,7 +2,7 @@ import random
 import pymongo
 
 
-def last_eleven(hand, pos):
+def _last_eleven(hand, pos):
     """Finds the first 11 in a list of number
 
     :param hand: A list, of numbers
@@ -18,6 +18,12 @@ def last_eleven(hand, pos):
         i += 1
     return found
 
+def last_eleven(hand):
+    try:
+        i=hand.index(11)
+    except ValueError:
+        i=99
+    return(i)
 
 def is_blackjack(hand):
     """Returns true if the hand list contains [1,10] or [10,1]"""
@@ -85,7 +91,7 @@ class Player:
             # compute score and switch back aces to 1 until score<=21
             while sum(hand) > 21 and pos < 99:
                 # if over 21 then change last 11 for 1
-                pos = last_eleven(hand, pos)
+                pos = last_eleven(hand)
                 if pos < 99:
                     hand[pos] = 1
         self.score = sum(hand)
