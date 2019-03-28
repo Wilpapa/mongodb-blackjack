@@ -51,14 +51,14 @@ class Player:
         """
         self.blackjack = (self.hand==[1,10] or self.hand==[10,1])
         if self.blackjack:
-            self.score=21
+            self.score = 21
         else:
             # convert all aces to 11
             hand = [11 if x == 1 else x for x in self.hand]
             # compute score and switch back aces to 1 until score<=21
             while sum(hand) > 21:
                 try:
-                    i=hand.index(11) # any 11 in hand ?
+                    i = hand.index(11) # any 11 in hand ?
                     hand[i] = 1 # yes switch it to 1
                 except ValueError: # no, let's exit
                     break
