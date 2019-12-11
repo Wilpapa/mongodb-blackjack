@@ -15,7 +15,7 @@ As all games are recorded into MongoDB database, it's easy to run some aggregati
 The program is counting player gains as follow :
 * Player does a blackjack and Casino does not : 3 
 * Player and Casino get a blackjack : 1
-* Player busted or Casino has a blackjack while plauer has not : 0
+* Player busted or Casino has a blackjack while player has not : 0
 * Player wins on Casino : 2
 
 The program can be improved in several ways :
