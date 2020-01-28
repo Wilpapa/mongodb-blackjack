@@ -118,7 +118,7 @@ switched to db blackjack
 }
 ```
 
-### Example of analytic queris
+### Example of analytic queries
 
 You can filter a game session on TS field (contains the datetime when you launched the test)
 
