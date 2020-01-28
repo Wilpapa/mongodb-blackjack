@@ -49,7 +49,7 @@ class Player:
         Unless a blackjack is detected, scoring is made by counting all aces as 11,
         then switch them back to 1 one after the other until score goes below 22
         """
-        self.blackjack = (self.hand==[1,10] or self.hand==[10,1])
+        self.blackjack = (self.hand == [1, 10] or self.hand == [10, 1])
         if self.blackjack:
             self.score = 21
         else:
