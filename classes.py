@@ -19,7 +19,7 @@ class Deck:
 
     def get_card(self):
         """Retrieves the card at position_deck position and increases position_deck
-        if half the cards have been played, reshuffle and rest position_deck"""
+        if half the cards have been played, reshuffle and reset position_deck"""
         card = self.cards[self.position_deck]
         self.position_deck += 1
         if self.position_deck > self.mid_deck:

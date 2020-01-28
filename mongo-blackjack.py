@@ -7,6 +7,7 @@ Writes the games into a MongoDB collection named "blackjack.games"
 for later analysis
 
 Before starting, set up the following constants :
+MONGO_URI = "mongodb://localhost" # connection string URI to MongoDB server/replicaset
 SAMPLES = 1000  # number of games to play
 THRESHOLD = 15  # score under which Player will draw 1 card
 NB_DECKS = 4  # number of decks to use. Decks are reshuffled when half the cards have been drawn
