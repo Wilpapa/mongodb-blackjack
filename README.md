@@ -120,7 +120,61 @@ switched to db blackjack
 
 ### Example of analytic queris
 
-__TODO__
+You can filter a game session on TS field (contains the datetime when you launched the test)
+
+Create an index on TS (will make the queries run *a lot* faster)
+```js
+db.games.createIndex({TS:1})
+```
+
+Find the latest run
+```js
+db.games.find({},{_id:0,TS:1}).sort({TS:-1}).limit(1)
+```
+
+List all runs with timestamp, threshold, #games, total gains/losses
+```js
+db.games.aggregate([
+	{$group:{
+		_id:"$TS",
+		games:{$sum:1}, 
+		threshold:{$max:"$threshold"},
+		gains:{$sum:"$playerGain"}
+		}
+	},
+	{$sort:{_id:-1}}
+])
+```
+
+Evaluate total gain for a run
+```js
+db.games.aggregate([
+	{$match:{"TS" : ISODate("2019-03-26T12:10:51.456Z")}},
+	{$group:{_id:"Gain total",total:{$sum:"$playerGain"}}}
+])
+```
+
+Compute blow lost ratio (games lost due to total score over 21)
+```js
+condition={
+	"$cond" : {
+		"if" : {
+			"$gte" : [
+				"$playerScore",
+				22
+			]
+		},
+		"then" : 1,
+		"else" : 0
+	}
+}
+
+db.games.aggregate([
+	{$match:{"TS" : ISODate("2019-03-26T12:10:51.456Z")}},
+	{$project:{blow:condition}},
+	{$group:{_id:"counts",blows:{$sum:"$blow"},total:{$sum:1}}},
+	{$project:{"blow ratio":{$divide:["$blows","$total"]}}}])
+```
 
 # Contributors
 

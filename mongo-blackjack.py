@@ -17,7 +17,7 @@ from classes import DAO, Player, Deck
 
 MONGO_URI = "mongodb://localhost" 
 SAMPLES = 10000 
-THRESHOLD = 15 
+THRESHOLD = 13 
 NB_DECKS = 4  
 START_TIME = datetime.now()
 
