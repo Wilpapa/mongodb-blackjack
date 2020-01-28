@@ -13,10 +13,10 @@ Basic principle is as follow :
 As all games are recorded into MongoDB database, it's easy to run some aggregation pipelines to gather statistics, see last chapter of this README.
 
 The program is counting player gains as follow :
-* Player does a blackjack and Casino does not : 3 
-* Player and Casino get a blackjack : 1
-* Player busted or Casino has a blackjack while player has not : 0
-* Player wins on Casino : 2
+* Player does a blackjack and Casino does not : 2 
+* Player and Casino get a blackjack : 0
+* Player busted or Casino has a blackjack while player has not : -1
+* Player wins on Casino : 1
 
 The program can be improved in several ways :
 - implement Double and Split
